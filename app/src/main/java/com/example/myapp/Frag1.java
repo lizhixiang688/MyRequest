@@ -19,7 +19,6 @@ import java.util.HashMap;
 
 
 public class Frag1 extends Fragment {
-   private RequestBuilder builder=new RequestBuilder();
    private TextView textView,textViewjson;
    private Mhandler mhandler=new Mhandler();
    private HashMap<String ,Long> params=new HashMap<>();
@@ -44,10 +43,12 @@ public class Frag1 extends Fragment {
             @Override
             public void onClick(View v) {
                 params.put("uid",Long.parseLong("4057802562"));
-                builder.buildurl("http://sandyz.ink:3000/user/playlist");
-                builder.buildhandler(mhandler);
-                builder.buildparams(params);
-                NetRequest request=builder.create();
+
+                NetRequest request=NetRequest.getBuilder()
+                        .url("http://sandyz.ink:3000/user/playlist")
+                        .handler(mhandler)
+                        .params(params).postway("POST").build();
+
                 request.sendPostRequest();
             }
         });
